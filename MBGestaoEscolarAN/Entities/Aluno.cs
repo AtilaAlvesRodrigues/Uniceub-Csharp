@@ -1,20 +1,38 @@
-﻿namespace MBGestaoEscolarAN.Entities
-{
-    public class Aluno:Pessoa
-    {
-        private int alunoId;       
-        private string matricula;    
-        private DateTime dataNascimento;
-        private string endereco;
-        private string statusAluno;
-        private DateTime dataCadastro;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-        public int AlunoId { get => alunoId; set => alunoId = value; } 
-        public string Matricula { get => matricula; set => matricula = value; }     
-        public DateTime DataNascimento { get => dataNascimento; set => dataNascimento = value; }
-        public string Endereco { get => endereco; set => endereco = value; }
-        public string StatusAluno { get => statusAluno; set => statusAluno = value; }
-        public DateTime DataCadastro { get => dataCadastro; set => dataCadastro = value; }
+namespace MBGestaoEscolarAN.Entities
+{
+    [Table("Aluno")]
+    public class Aluno : Pessoa
+    {
+        public Aluno()
+        {
+        }
+
+        public Aluno(string matricula, DateTime? dataNascimento)
+        {
+            Matricula = matricula;
+            DataNascimento = dataNascimento;
+        }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int AlunoId { get; set; }
+        [Required]
+        [StringLength(40)]
+        public string Matricula { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? DataNascimento { get; set; }
+        [StringLength(500)]
+        public string Endereco { get; set; }
+        [Required]
+        [StringLength(40)]
+        public string StatusAluno { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime? DataCadastro { get; set; }
+
+        public ICollection<Inscricao> Inscricoes { get; set; } = new List<Inscricao>();
+
 
     }
 }

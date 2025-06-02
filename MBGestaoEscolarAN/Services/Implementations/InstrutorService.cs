@@ -1,6 +1,13 @@
-﻿namespace MBGestaoEscolarAN.Services.Implementations
+﻿using MBGestaoEscolarAN.Data;
+
+namespace MBGestaoEscolarAN.Services.Implementations
 {
-    public class InstrutorService
+    public class InstrutorService : IInstrutorService
     {
-    }
+        private readonly SQLServerDbContext _contexto;
+        public InstrutorService(SQLServerDbContext contexto)
+        {
+            _contexto = contexto;
+        }
+    }       
 }
